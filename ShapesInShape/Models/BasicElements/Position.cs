@@ -33,6 +33,14 @@ namespace ShapesInShape.Models.BasicElements
 
             return dist;
         }
+
+        public Position()
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
+
         public Position(double x, double y, double z)
         {
             X = x;

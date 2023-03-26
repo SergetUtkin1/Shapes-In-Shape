@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.AbstractProducts
 {
-    internal class Distribution
+    internal abstract class Distribution
     {
+        public abstract double GetValue(double minValue, double maxValue);
     }
 }
