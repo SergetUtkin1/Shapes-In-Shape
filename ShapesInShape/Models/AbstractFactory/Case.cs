@@ -2,6 +2,7 @@
 using ShapesInShape.Models.BasicElements;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,26 +17,51 @@ namespace ShapesInShape.Models.AbstractFactory
         private double MaxLength { get; set; }
         private double MinLength { get; set; }
         private Shape BoundingShape { get; set; }
-        private Shape InnerShape { get; set; }
         private Distribution DistributionOfPosition { get; set; }
         private Distribution DistributionOfLength { get; set; }
 
-        public Case(CaseFactory factory, double length)
+        public Case(CaseFactory factory, int count, double length, double maxLength, double minLength, Distribution distributionOfPosition, Distribution distributionOfLength)
         {
             Factory = factory;
             BoundingShape = factory.CreateBoundingShape(length);
+            Count = count;
+            Factory.SetCountOfInnerShapes(count);
             Length = length;
+            MaxLength = maxLength;
+            MinLength = minLength;
+            DistributionOfPosition = distributionOfPosition;
+            DistributionOfLength = distributionOfLength;
         }
 
         public void Run()
         {
-            var center = CreatePosition();
-            var length = CreateLength();
-            InnerShape = Factory.CreateInnerShape(center, length);
+            var curCount = 0;
+            var attemptCount = 0;
+
+            while(curCount < Count && attemptCount < 10000)
+            {
+                var center = CreatePosition();
+                var length = CreateLength();
+
+                Factory.CreateInnerShape(center, length);
+
+                if (Factory.CheckIntersection())
+                {
+                    attemptCount += 1;
+                }
+                else
+                {
+                    Factory.Add();
+                    curCount += 1;
+                    attemptCount = 0;
+                    Console.WriteLine($"Окружность номер {curCount}: ({center.X}, {center.Y}, {center.Z}) R = {length} " );
+                }
+            }
+            Console.WriteLine(curCount);
         }
 
         private double CreateLength() =>
-            DistributionOfPosition.GetValue(MinLength, MaxLength);
+            DistributionOfLength.GetValue(MinLength, MaxLength);
 
         private Position CreatePosition()
         {

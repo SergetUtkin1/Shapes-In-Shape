@@ -2,6 +2,7 @@
 using ShapesInShape.Models.BasicElements;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,10 @@ namespace ShapesInShape.Models.AbstractFactory
 {
     internal abstract class CaseFactory
     {
+        public abstract void SetCountOfInnerShapes(int count);
+        public abstract void Add();
         public abstract Shape CreateBoundingShape(double length);
-        public abstract Shape CreateBoundingShape(double length, double width, double height);
-        public abstract Shape CreateInnerShape(Position center, double length);
-
+        public abstract void CreateInnerShape(Position center, double length);
+        public abstract bool CheckIntersection();
     }
 }
