@@ -64,37 +64,6 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             return flag;
         }
 
-        private bool HasIntersectionWithOtherSphere(Sphere sphere, Sphere otherSphere)
-        {
-            var flag = false;
-            var distanceBetweenCenteres = sphere.Center.GetDistance(otherSphere.Center);
-
-            if (distanceBetweenCenteres <= sphere.Dimension.Length + otherSphere.Dimension.Length)
-            {
-                flag = true;
-            }
-
-            return flag;
-        }
-
-        private bool HasIntersectionWithBound(Sphere sphere)
-        {
-            var flag = false;
-
-            for (int i = 0; i < BoundingShape.Sides.Length; i++)
-            {
-                var distance = BoundingShape.Center.GetDistance(BoundingShape.Sides[i]);
-
-                if (distance <= sphere.Dimension.Length)
-                {
-                    flag = true;
-                    break;
-                }
-            }
-
-            return flag;
-        }
-
         public override void SetCountOfInnerShapes(int count)
         {
             InnerShapes = new Sphere[count];
@@ -103,6 +72,37 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
         public override void Add()
         {
             _currentIndex += 1;
+        }
+
+        private bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape)
+        {
+            var flag = false;
+            var distanceBetweenCenteres = shape.Center.GetDistance(otherShape.Center);
+
+            if (distanceBetweenCenteres <= shape.Dimension.Length + otherShape.Dimension.Length)
+            {
+                flag = true;
+            }
+
+            return flag;
+        }
+
+        private bool HasIntersectionWithBound(Shape shape)
+        {
+            var flag = false;
+
+            for (int i = 0; i < BoundingShape.Sides.Length; i++)
+            {
+                var distance = BoundingShape.Center.GetDistance(BoundingShape.Sides[i]);
+
+                if (distance <= shape.Dimension.Length)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+
+            return flag;
         }
     }
 }

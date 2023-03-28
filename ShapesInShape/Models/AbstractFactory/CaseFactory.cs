@@ -16,5 +16,7 @@ namespace ShapesInShape.Models.AbstractFactory
         public abstract Shape CreateBoundingShape(Dimension dimension);
         public abstract void CreateInnerShape(Position center, Dimension dimension);
         public abstract bool CheckIntersection();
+        protected abstract bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape);
+        protected abstract bool HasIntersectionWithBound(Shape shape);
     }
 }
