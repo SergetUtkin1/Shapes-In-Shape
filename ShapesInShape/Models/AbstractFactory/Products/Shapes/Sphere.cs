@@ -10,11 +10,10 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 {
     internal class Sphere : Shape
     {
-        public double Radius { get; set; }
-
-        public Sphere(Position center, double radius) : base(center)
+        public Sphere(Position center, double length, double width, double heigth) : base(center, length, width, heigth)
         {
-            Radius = radius;
+            Dimension = new Dimension(length);
         }
+
     }
 }

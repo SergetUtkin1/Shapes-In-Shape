@@ -13,20 +13,20 @@ namespace ShapesInShape.Models.AbstractFactory
     {
         private CaseFactory Factory { get; set; }
         private int Count { get; set; }
-        private double Length { get; set; }
+        private Dimension BoundDimension { get; set; }
         private double MaxLength { get; set; }
         private double MinLength { get; set; }
         private Shape BoundingShape { get; set; }
         private Distribution DistributionOfPosition { get; set; }
         private Distribution DistributionOfLength { get; set; }
 
-        public Case(CaseFactory factory, int count, double length, double maxLength, double minLength, Distribution distributionOfPosition, Distribution distributionOfLength)
+        public Case(CaseFactory factory, int count, Dimension boundDimension, double maxLength, double minLength, Distribution distributionOfPosition, Distribution distributionOfLength)
         {
             Factory = factory;
-            BoundingShape = factory.CreateBoundingShape(length);
+            BoundingShape = factory.CreateBoundingShape(boundDimension);
             Count = count;
             Factory.SetCountOfInnerShapes(count);
-            Length = length;
+            BoundDimension = boundDimension;
             MaxLength = maxLength;
             MinLength = minLength;
             DistributionOfPosition = distributionOfPosition;
@@ -42,8 +42,10 @@ namespace ShapesInShape.Models.AbstractFactory
             {
                 var center = CreatePosition();
                 var length = CreateLength();
+                var width = CreateLength();
+                var heigth = CreateLength();
 
-                Factory.CreateInnerShape(center, length);
+                Factory.CreateInnerShape(center, new  Dimension(length, width, heigth));
 
                 if (Factory.CheckIntersection())
                 {
@@ -60,14 +62,14 @@ namespace ShapesInShape.Models.AbstractFactory
             Console.WriteLine(curCount);
         }
 
-        private double CreateLength() =>
-            DistributionOfLength.GetValue(MinLength, MaxLength);
+        private double CreateLength()
+            => DistributionOfLength.GetValue(MinLength, MaxLength);
 
         private Position CreatePosition()
         {
-            var x = DistributionOfPosition.GetValue(BoundingShape.Center.X - 0.5 * Length, BoundingShape.Center.X + 0.5 * Length);
-            var y = DistributionOfPosition.GetValue(BoundingShape.Center.Y - 0.5 * Length, BoundingShape.Center.Y + 0.5 * Length);
-            var z = DistributionOfPosition.GetValue(BoundingShape.Center.Z - 0.5 * Length, BoundingShape.Center.Z + 0.5 * Length);
+            var x = DistributionOfPosition.GetValue(BoundingShape.Center.X - 0.5 * BoundDimension.Length, BoundingShape.Center.X + 0.5 * BoundDimension.Length);
+            var y = DistributionOfPosition.GetValue(BoundingShape.Center.Y - 0.5 * BoundDimension.Width, BoundingShape.Center.Y + 0.5 * BoundDimension.Width);
+            var z = DistributionOfPosition.GetValue(BoundingShape.Center.Z - 0.5 * BoundDimension.Heigth, BoundingShape.Center.Z + 0.5 * BoundDimension.Heigth);
 
             return new Position(x, y, z);
         }

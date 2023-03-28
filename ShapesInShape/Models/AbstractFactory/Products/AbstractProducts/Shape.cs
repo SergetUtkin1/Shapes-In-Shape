@@ -11,8 +11,11 @@ namespace ShapesInShape.Models.AbstractFactory.Products.AbstractProducts
     {
         public Position Center { get; set; }
 
-        public Shape(Position center)
+        public Dimension Dimension { get; set; }
+
+        public Shape(Position center, double length, double width, double heigth)
         {
+            Dimension = new Dimension(length, width, heigth);
             Center = center;
         }
     }

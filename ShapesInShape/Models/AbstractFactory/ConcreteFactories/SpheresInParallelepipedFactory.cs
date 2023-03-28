@@ -10,27 +10,40 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
 {
-    internal class SpheresInCubeFactory : CaseFactory
+    internal class SpheresInParallelepipedFactory : CaseFactory
     {
-        public int CurrentIndex { get; set; } = 0;
+        private int _currentIndex = 0;
         public Sphere[] InnerShapes { get; set; }
-        public Cube BoundingShape { get; set; }
-        public override Shape CreateBoundingShape(double length)
+        public Parallelepiped BoundingShape { get; set; }
+
+        public SpheresInParallelepipedFactory(Sphere[] innerShapes, Parallelepiped boundingShape)
         {
-            BoundingShape = new Cube(new Position(), length);
+            _currentIndex = 0;
+            InnerShapes = innerShapes;
+            BoundingShape = boundingShape;
+        }
+
+        public SpheresInParallelepipedFactory()
+        {
+
+        }
+
+        public override Shape CreateBoundingShape(Dimension dimension)
+        {
+            BoundingShape = new Parallelepiped(new Position(), dimension.Length, dimension.Width, dimension.Heigth);
             return BoundingShape;
         }
 
-        public override void CreateInnerShape(Position center, double length)
+        public override void CreateInnerShape(Position center, Dimension dimension)
         {
-            var sphere = new Sphere(center, length);
-            InnerShapes[CurrentIndex] = sphere;
+            var sphere = new Sphere(center, dimension.Length, dimension.Width, dimension.Heigth);
+            InnerShapes[_currentIndex] = sphere;
         }
 
         public override bool CheckIntersection()
         {
             var flag = false;
-            var sphere = InnerShapes[CurrentIndex];
+            var sphere = InnerShapes[_currentIndex];
 
             if (HasIntersectionWithBound(sphere))
             {
@@ -38,7 +51,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             }
             else
             {
-                for (int i = 0; i < CurrentIndex; i++)
+                for (int i = 0; i < _currentIndex; i++)
                 {
                     if (HasIntersectionWithOtherSphere(sphere, InnerShapes[i]))
                     {
@@ -56,7 +69,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             var flag = false;
             var distanceBetweenCenteres = sphere.Center.GetDistance(otherSphere.Center);
 
-            if (distanceBetweenCenteres <= sphere.Radius + otherSphere.Radius)
+            if (distanceBetweenCenteres <= sphere.Dimension.Length + otherSphere.Dimension.Length)
             {
                 flag = true;
             }
@@ -72,7 +85,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             {
                 var distance = BoundingShape.Center.GetDistance(BoundingShape.Sides[i]);
 
-                if (distance <= sphere.Radius)
+                if (distance <= sphere.Dimension.Length)
                 {
                     flag = true;
                     break;
@@ -89,7 +102,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
 
         public override void Add()
         {
-            CurrentIndex += 1;
+            _currentIndex += 1;
         }
     }
 }

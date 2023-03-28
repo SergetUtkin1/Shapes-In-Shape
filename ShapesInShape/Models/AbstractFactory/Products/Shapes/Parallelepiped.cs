@@ -9,22 +9,19 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 {
-    internal class Cube : Shape
+    internal class Parallelepiped : Shape
     {
+        public Parallelepiped(Position center, double length, double width, double heigth) : base(center, length, width, heigth)
+        {
+            Sides = new Plane[6];
+            Points = new Position[8];
+            SetSides();
+        }
 
         public Plane[] Sides { get; private set; }
 
         public Position[] Points { get; private set; }
 
-        public double EdgeLength { get; }
-
-        public Cube(Position center, double length) : base(center)
-        {
-            EdgeLength = length;
-            Sides = new Plane[6];
-            Points = new Position[8];
-            SetSides();
-        }
 
         private void SetSides()
         {
@@ -62,21 +59,21 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
                     {
                         var tempArray = new int[] { i, j, k };
 
-                        var x = Center.X + tempArray[0] * EdgeLength * 0.5;
-                        var y = Center.Y + tempArray[1] * EdgeLength * 0.5;
-                        var z = Center.Z + tempArray[2] * EdgeLength * 0.5;
+                        var x = Center.X + tempArray[0] * Dimension.Length * 0.5;
+                        var y = Center.Y + tempArray[1] * Dimension.Width * 0.5;
+                        var z = Center.Z + tempArray[2] * Dimension.Heigth * 0.5;
 
                         PointsOfSides.Add(new Position(x, y, z));
 
-                        x = Center.X + tempArray[1] * EdgeLength * 0.5;
-                        y = Center.Y + tempArray[0] * EdgeLength * 0.5;
-                        z = Center.Z + tempArray[2] * EdgeLength * 0.5;
+                        x = Center.X + tempArray[1] * Dimension.Length * 0.5;
+                        y = Center.Y + tempArray[0] * Dimension.Width * 0.5;
+                        z = Center.Z + tempArray[2] * Dimension.Heigth * 0.5;
 
                         PointsOfSides.Add(new Position(x, y, z));
 
-                        x = Center.X + tempArray[2] * EdgeLength * 0.5;
-                        y = Center.Y + tempArray[1] * EdgeLength * 0.5;
-                        z = Center.Z + tempArray[0] * EdgeLength * 0.5;
+                        x = Center.X + tempArray[2] * Dimension.Length * 0.5;
+                        y = Center.Y + tempArray[1] * Dimension.Width * 0.5;
+                        z = Center.Z + tempArray[0] * Dimension.Heigth * 0.5;
 
                         PointsOfSides.Add(new Position(x, y, z));
 

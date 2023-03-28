@@ -13,8 +13,8 @@ namespace ShapesInShape.Models.AbstractFactory
     {
         public abstract void SetCountOfInnerShapes(int count);
         public abstract void Add();
-        public abstract Shape CreateBoundingShape(double length);
-        public abstract void CreateInnerShape(Position center, double length);
+        public abstract Shape CreateBoundingShape(Dimension dimension);
+        public abstract void CreateInnerShape(Position center, Dimension dimension);
         public abstract bool CheckIntersection();
     }
 }
