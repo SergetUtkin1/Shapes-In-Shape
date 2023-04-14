@@ -1,12 +1,6 @@
 ﻿using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
 using ShapesInShape.Models.AbstractFactory.Products.Shapes;
 using ShapesInShape.Models.BasicElements;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
 {
@@ -74,7 +68,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             _currentIndex += 1;
         }
 
-        private bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape)
+        protected override bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape)
         {
             var flag = false;
             var distanceBetweenCenteres = shape.Center.GetDistance(otherShape.Center);
@@ -87,7 +81,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             return flag;
         }
 
-        private bool HasIntersectionWithBound(Shape shape)
+        protected override bool HasIntersectionWithBound(Shape shape)
         {
             var flag = false;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.BasicElements
 {
-    internal class Position
+    public class Position
     {
         public double X { get; set; }
         public double Y { get; set; }

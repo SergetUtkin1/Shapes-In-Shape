@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.BasicElements
 {
-    internal class Plane
+    public class Plane
     {
         private Edge[] _edges;
 

@@ -41,11 +41,14 @@ namespace ShapesInShape.Models.AbstractFactory
             while(curCount < Count && attemptCount < 10000)
             {
                 var center = CreatePosition();
-                var length = CreateLength();
-                var width = CreateLength();
-                var heigth = CreateLength();
+                var dimension = new Dimension()
+                {
+                    Length = CreateLength(),
+                    Width = CreateLength(),
+                    Heigth = CreateLength()
+                };
 
-                Factory.CreateInnerShape(center, new  Dimension(length, width, heigth));
+                Factory.CreateInnerShape(center, dimension);
 
                 if (Factory.CheckIntersection())
                 {
@@ -56,7 +59,6 @@ namespace ShapesInShape.Models.AbstractFactory
                     Factory.Add();
                     curCount += 1;
                     attemptCount = 0;
-                    Console.WriteLine($"Окружность номер {curCount}: ({center.X}, {center.Y}, {center.Z}) R = {length} " );
                 }
             }
             Console.WriteLine(curCount);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.Distributions
 {
-    internal class GammaDistribution
+    public class GammaDistribution
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.AbstractProducts
 {
-    internal abstract class Shape
+    public abstract class Shape
     {
         public Position Center { get; set; }
 

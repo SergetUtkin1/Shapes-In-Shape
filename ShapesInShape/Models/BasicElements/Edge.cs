@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.BasicElements
 {
-    internal class Edge
+    public class Edge
     {
         public Position Start { get; set; }
         public Position End { get; set; }
