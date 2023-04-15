@@ -4,7 +4,7 @@ using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
 {
-    internal class SpheresInParallelepipedFactory : CaseFactory
+    public class SpheresInParallelepipedFactory : CaseFactory
     {
         private int _currentIndex = 0;
         public Sphere[] InnerShapes { get; set; }
@@ -17,21 +17,52 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             BoundingShape = boundingShape;
         }
 
-        public SpheresInParallelepipedFactory()
-        {
-
-        }
-
-        public override Shape CreateBoundingShape(Dimension dimension)
-        {
+        public override void CreateBoundingShape(Dimension dimension) =>
             BoundingShape = new Parallelepiped(new Position(), dimension.Length, dimension.Width, dimension.Heigth);
-            return BoundingShape;
-        }
 
         public override void CreateInnerShape(Position center, Dimension dimension)
         {
             var sphere = new Sphere(center, dimension.Length, dimension.Width, dimension.Heigth);
             InnerShapes[_currentIndex] = sphere;
+        }
+
+        public override void SetCountOfInnerShapes(int count)
+        {
+            InnerShapes = new Sphere[count];
+        }
+
+        public override Position CreatePosition(Distribution distributionOfPosition)
+        {
+            double x, y, z;
+            Position position;
+
+            do
+            {
+                x = distributionOfPosition.GetValue(BoundingShape.Center.X - 0.5 * BoundingShape.Dimension.Length, BoundingShape.Center.X + 0.5 * BoundingShape.Dimension.Length);
+                y = distributionOfPosition.GetValue(BoundingShape.Center.Y - 0.5 * BoundingShape.Dimension.Width, BoundingShape.Center.Y + 0.5 * BoundingShape.Dimension.Width);
+                z = distributionOfPosition.GetValue(BoundingShape.Center.Z - 0.5 * BoundingShape.Dimension.Heigth, BoundingShape.Center.Z + 0.5 * BoundingShape.Dimension.Heigth);
+                position = new Position(x, y, z);
+            } while (!CheckPointInsideBounding(position));
+
+            return position;
+        }
+
+        protected override bool CheckPointInsideBounding(Position position)
+        {
+            var flag = false;
+            var xPlanes = (BoundingShape.Center.X - 0.5 * BoundingShape.Dimension.Length, BoundingShape.Center.X + 0.5 * BoundingShape.Dimension.Length);
+            var yPlanes = (BoundingShape.Center.Y - 0.5 * BoundingShape.Dimension.Width, BoundingShape.Center.Y + 0.5 * BoundingShape.Dimension.Width);
+            var zPlanes = (BoundingShape.Center.Z - 0.5 * BoundingShape.Dimension.Heigth, BoundingShape.Center.Z + 0.5 * BoundingShape.Dimension.Heigth);
+
+            var xCondition = (xPlanes.Item1 < position.X && position.X < xPlanes.Item2);
+            var yCondition = (yPlanes.Item1 < position.Y && position.Y < yPlanes.Item2);
+            var zCondition = (zPlanes.Item1 < position.Z && position.Z < zPlanes.Item2);
+            if (xCondition && yCondition && zCondition)
+            {
+                flag = true;
+            }
+
+            return flag;
         }
 
         public override bool CheckIntersection()
@@ -56,16 +87,6 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             }
 
             return flag;
-        }
-
-        public override void SetCountOfInnerShapes(int count)
-        {
-            InnerShapes = new Sphere[count];
-        }
-
-        public override void Add()
-        {
-            _currentIndex += 1;
         }
 
         protected override bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape)
@@ -97,6 +118,11 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             }
 
             return flag;
+        }
+
+        public override void ConfirmAdding()
+        {
+            _currentIndex += 1;
         }
     }
 }

@@ -8,7 +8,7 @@ using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 {
-    internal class Sphere : Shape
+    public class Sphere : Shape
     {
         public Sphere(Position center, double length, double width, double heigth) : base(center, length, width, heigth)
         {

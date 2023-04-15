@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory
 {
-    internal abstract class CaseFactory
+    public abstract class CaseFactory
     {
         public abstract void SetCountOfInnerShapes(int count);
-        public abstract void Add();
-        public abstract Shape CreateBoundingShape(Dimension dimension);
+        public abstract void ConfirmAdding();
+        public abstract void CreateBoundingShape(Dimension dimension);
         public abstract void CreateInnerShape(Position center, Dimension dimension);
         public abstract bool CheckIntersection();
+        public abstract Position CreatePosition(Distribution distributionOfPosition);
+        protected abstract bool CheckPointInsideBounding(Position position);
         protected abstract bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape);
         protected abstract bool HasIntersectionWithBound(Shape shape);
     }

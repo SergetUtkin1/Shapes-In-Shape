@@ -13,7 +13,7 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Distributions
         public override double GetValue(double minValue, double maxValue)
         {
             var dist = new Normal();
-            return 0;
+            return dist.Sample();
         }            
     }
 }

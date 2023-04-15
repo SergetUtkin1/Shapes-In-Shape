@@ -3,7 +3,7 @@ using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 {
-    internal class Parallelepiped : Shape
+    public class Parallelepiped : Shape
     {
         public Parallelepiped(Position center, double length, double width, double heigth) : base(center, length, width, heigth)
         {
