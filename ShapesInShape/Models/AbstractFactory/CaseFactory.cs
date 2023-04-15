@@ -11,6 +11,7 @@ namespace ShapesInShape.Models.AbstractFactory
 {
     public abstract class CaseFactory
     {
+        protected int _currentIndex = 0;
         public abstract void SetCountOfInnerShapes(int count);
         public abstract void ConfirmAdding();
         public abstract void CreateBoundingShape(Dimension dimension);

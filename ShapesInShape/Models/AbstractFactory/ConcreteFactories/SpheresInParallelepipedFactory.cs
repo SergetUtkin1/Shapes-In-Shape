@@ -6,16 +6,8 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
 {
     public class SpheresInParallelepipedFactory : CaseFactory
     {
-        private int _currentIndex = 0;
-        public Sphere[] InnerShapes { get; set; }
-        public Parallelepiped BoundingShape { get; set; }
-
-        public SpheresInParallelepipedFactory(Sphere[] innerShapes, Parallelepiped boundingShape)
-        {
-            _currentIndex = 0;
-            InnerShapes = innerShapes;
-            BoundingShape = boundingShape;
-        }
+        public Sphere[] InnerShapes { get; set; } = null!;
+        public Parallelepiped BoundingShape { get; set; } = null!;
 
         public override void CreateBoundingShape(Dimension dimension) =>
             BoundingShape = new Parallelepiped(new Position(), dimension.Length, dimension.Width, dimension.Heigth);

@@ -1,33 +1,18 @@
-﻿using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
-using ShapesInShape.Models.BasicElements;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.Models.AbstractFactory
 {
     internal class Case
     {
+        private CaseConfiguration Configuration { get; set; }
         private CaseFactory Factory { get; set; }
-        private int Count { get; set; }
-        private double MaxLength { get; set; }
-        private double MinLength { get; set; }
-        private Distribution DistributionOfPosition { get; set; }
-        private Distribution DistributionOfLength { get; set; }
 
-        public Case(CaseFactory factory, int count, Dimension boundDimension, double maxLength, double minLength, Distribution distributionOfPosition, Distribution distributionOfLength)
+        public Case(CaseFactory factory, CaseConfiguration configuration)
         {
+            Configuration = configuration;
             Factory = factory;
-            factory.CreateBoundingShape(boundDimension);
-            Count = count;
-            Factory.SetCountOfInnerShapes(count);
-            MaxLength = maxLength;
-            MinLength = minLength;
-            DistributionOfPosition = distributionOfPosition;
-            DistributionOfLength = distributionOfLength;
+            Factory.CreateBoundingShape(Configuration.BoundDimension);
+            Factory.SetCountOfInnerShapes(Configuration.Count);
         }
 
         public void Run()
@@ -35,9 +20,9 @@ namespace ShapesInShape.Models.AbstractFactory
             var curCount = 0;
             var attemptCount = 0;
 
-            while(curCount < Count && attemptCount < 10000)
+            while (curCount < Configuration.Count && attemptCount < 10000)
             {
-                var center = Factory.CreatePosition(DistributionOfPosition);
+                var center = Factory.CreatePosition(Configuration.DistributionOfPosition);
                 var dimension = new Dimension()
                 {
                     Length = CreateLength(),
@@ -56,13 +41,25 @@ namespace ShapesInShape.Models.AbstractFactory
                     Factory.ConfirmAdding();
                     curCount += 1;
                     attemptCount = 0;
+                    Console.WriteLine($"Окружность номер {curCount}: ({center.X}, {center.Y}, {center.Z}) R = {dimension.Length} ");
                 }
             }
             Console.WriteLine(curCount);
         }
 
         private double CreateLength()
-            => DistributionOfLength.GetValue(MinLength, MaxLength);
+        {
+            double length;
+
+            do
+            {
+                length = Configuration.DistributionOfLength
+                        .GetValue(Configuration.MinLength, Configuration.MaxLength);
+            } while (!(Configuration.MinLength <= length && length <= Configuration.MaxLength));
+
+            return length;
+        }
+           
 
     }
 }
