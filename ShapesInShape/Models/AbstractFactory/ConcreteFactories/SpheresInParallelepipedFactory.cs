@@ -8,7 +8,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
     {
         public Sphere[] InnerShapes { get; set; } = null!;
         public Parallelepiped BoundingShape { get; set; } = null!;
-
+        
         public override void CreateBoundingShape(Dimension dimension) =>
             BoundingShape = new Parallelepiped(new Position(), dimension.Length, dimension.Width, dimension.Heigth);
 
@@ -21,6 +21,22 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
         public override void SetCountOfInnerShapes(int count)
         {
             InnerShapes = new Sphere[count];
+        }
+        
+        public override Shape[] GetArrayOfInnerShapes(Dimension[] dimensions)
+        {
+            var spheres = new Sphere[dimensions.Length];
+
+            for (int i = 0; i < dimensions.Length; i++)
+            {
+                spheres[i] = new Sphere(new Position(),
+                                        dimensions[i].Length,
+                                        dimensions[i].Width,
+                                        dimensions[i].Heigth);
+            }
+            Array.Sort(spheres, (a, b) => ((int)(b.Volume - a.Volume)));
+
+            return spheres;
         }
 
         public override Position CreatePosition(Distribution distributionOfPosition)

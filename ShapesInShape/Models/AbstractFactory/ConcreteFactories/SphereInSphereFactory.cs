@@ -34,6 +34,11 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             throw new NotImplementedException();
         }
 
+        public override Shape[] GetArrayOfInnerShapes(Dimension[] dimensions)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void SetCountOfInnerShapes(int count)
         {
             throw new NotImplementedException();

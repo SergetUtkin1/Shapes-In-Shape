@@ -16,6 +16,8 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 
         public Position[] Points { get; private set; }
 
+        protected override double GetVolume()
+            => Dimension.Length * Dimension.Width * Dimension.Heigth;
 
         private void SetSides()
         {
@@ -78,5 +80,6 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 
             return PointsOfSides;
         }
+
     }
 }

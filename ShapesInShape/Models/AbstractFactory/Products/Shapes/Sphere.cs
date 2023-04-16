@@ -1,9 +1,4 @@
-﻿using System;
-using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
 using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
@@ -15,5 +10,10 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
             Dimension = new Dimension(length);
         }
 
+        protected override double GetVolume()
+        {
+            double volume = (4.0 / 3.0) * double.Pi * Dimension.Length;
+            return volume;
+        }
     }
 }
