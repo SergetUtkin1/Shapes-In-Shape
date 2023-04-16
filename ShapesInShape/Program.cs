@@ -15,6 +15,7 @@ internal class Program
             BoundDimension = new Dimension(200, 200, 200),
             MaxLength = 25,
             MinLength = 20,
+            IsSortingEnable = false,
             DistributionOfLength = new UniformDistribution(),
             DistributionOfPosition = new UniformDistribution()
         };

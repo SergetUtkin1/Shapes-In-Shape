@@ -15,7 +15,7 @@ namespace ShapesInShape.Models.AbstractFactory
             Factory = factory;
             Factory.CreateBoundingShape(Configuration.BoundDimension);
             Factory.SetCountOfInnerShapes(Configuration.Count);
-            _shapes = FillArrayOfInnerShapes();
+            _shapes = FillArrayOfInnerShapes(Configuration.IsSortingEnable);
         }
 
         public void Run()
@@ -48,7 +48,7 @@ namespace ShapesInShape.Models.AbstractFactory
             Console.WriteLine($"Удалось вместить: {curCount}. \nПройдено фигур: {shapeIndex}");
         }
 
-        private Shape[] FillArrayOfInnerShapes()
+        private Shape[] FillArrayOfInnerShapes(bool isSortingEnable)
         {
             var count = Configuration.Count;
             var dimensions = new Dimension[count];
@@ -63,7 +63,7 @@ namespace ShapesInShape.Models.AbstractFactory
                 };
                 dimensions[i] = dimension;
             }
-            var shapes = Factory.GetArrayOfInnerShapes(dimensions);
+            var shapes = Factory.GetArrayOfInnerShapes(dimensions, isSortingEnable);
 
             return shapes;
         }
@@ -76,7 +76,7 @@ namespace ShapesInShape.Models.AbstractFactory
             {
                 length = Configuration.DistributionOfLength
                         .GetValue(Configuration.MinLength, Configuration.MaxLength);
-            } while (!(Configuration.MinLength <= length && length <= Configuration.MaxLength));
+            } while (!(Configuration.MinLength <= length && length <= Configuration.MaxLength && length > 0)); ;
 
             return length;
         }

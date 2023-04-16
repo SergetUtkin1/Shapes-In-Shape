@@ -23,7 +23,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             InnerShapes = new Sphere[count];
         }
         
-        public override Shape[] GetArrayOfInnerShapes(Dimension[] dimensions)
+        public override Shape[] GetArrayOfInnerShapes(Dimension[] dimensions, bool isSortingEnable)
         {
             var spheres = new Sphere[dimensions.Length];
 
@@ -34,7 +34,9 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
                                         dimensions[i].Width,
                                         dimensions[i].Heigth);
             }
-            Array.Sort(spheres, (a, b) => ((int)(b.Volume - a.Volume)));
+
+            if (isSortingEnable)
+                Array.Sort(spheres, (a, b) => ((int)(b.Volume - a.Volume)));
 
             return spheres;
         }

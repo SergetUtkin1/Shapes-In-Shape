@@ -17,7 +17,7 @@ namespace ShapesInShape.Models.AbstractFactory
         public abstract void CreateBoundingShape(Dimension dimension);
         public abstract void SetCountOfInnerShapes(int count);
         public abstract void CreateInnerShape(Position center, Dimension dimension);
-        public abstract Shape[] GetArrayOfInnerShapes(Dimension[] dimensions);
+        public abstract Shape[] GetArrayOfInnerShapes(Dimension[] dimensions, bool isSortingEnable);
         public abstract Position CreatePoint(Distribution distributionOfPosition);
         protected abstract bool CheckPointInsideBounding(Position position);
         protected abstract bool HasIntersectionWithOtherShape(Shape shape, Shape otherShape);
