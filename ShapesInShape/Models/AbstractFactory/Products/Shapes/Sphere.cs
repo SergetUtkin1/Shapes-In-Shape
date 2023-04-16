@@ -10,6 +10,11 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
             Dimension = new Dimension(length);
         }
 
+        public Sphere(Position center, double length) : base(center, length)
+        {
+
+        }
+
         protected override double GetVolume()
         {
             double volume = (4.0 / 3.0) * double.Pi * Dimension.Length;

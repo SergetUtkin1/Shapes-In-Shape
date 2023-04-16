@@ -8,12 +8,12 @@ internal class Program
 {
     private static void Main()
     {
-        var factory = new SpheresInParallelepipedFactory();
+        var factory = new SphereInSphereFactory();
         var configuration = new CaseConfiguration()
         {
             Count = 1000,
             BoundDimension = new Dimension(200, 200, 200),
-            MaxLength = 100,
+            MaxLength = 25,
             MinLength = 20,
             DistributionOfLength = new UniformDistribution(),
             DistributionOfPosition = new UniformDistribution()

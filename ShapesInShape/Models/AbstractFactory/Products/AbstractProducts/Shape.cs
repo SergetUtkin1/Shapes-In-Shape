@@ -15,6 +15,13 @@ namespace ShapesInShape.Models.AbstractFactory.Products.AbstractProducts
             Volume = GetVolume();
         }
 
+        public Shape(Position center, double length)
+        {
+            Dimension = new Dimension(length);
+            Center = center;
+            Volume = GetVolume();
+        }
+
         protected abstract double GetVolume();
     }
 }

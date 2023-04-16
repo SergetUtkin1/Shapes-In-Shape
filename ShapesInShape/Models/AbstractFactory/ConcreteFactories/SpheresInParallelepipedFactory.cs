@@ -39,7 +39,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             return spheres;
         }
 
-        public override Position CreatePosition(Distribution distributionOfPosition)
+        public override Position CreatePoint(Distribution distributionOfPosition)
         {
             double x, y, z;
             Position position;
@@ -73,31 +73,7 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             return flag;
         }
 
-        public override bool CheckIntersection()
-        {
-            var flag = false;
-            var sphere = InnerShapes[_currentIndex];
-
-            if (HasIntersectionWithBound(sphere))
-            {
-                flag = true;
-            }
-            else
-            {
-                for (int i = 0; i < _currentIndex; i++)
-                {
-                    if (HasIntersectionWithOtherSphere(sphere, InnerShapes[i]))
-                    {
-                        flag = true;
-                        break;
-                    }
-                }
-            }
-
-            return flag;
-        }
-
-        protected override bool HasIntersectionWithOtherSphere(Shape shape, Shape otherShape)
+        protected override bool HasIntersectionWithOtherShape(Shape shape, Shape otherShape)
         {
             var flag = false;
             var distanceBetweenCenteres = shape.Center.GetDistance(otherShape.Center);
@@ -128,9 +104,30 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
             return flag;
         }
 
-        public override void ConfirmAdding()
+        public override bool CheckIntersection()
         {
-            _currentIndex += 1;
+            {
+                var flag = false;
+                var shape = InnerShapes[_currentIndex];
+
+                if (HasIntersectionWithBound(shape))
+                {
+                    flag = true;
+                }
+                else
+                {
+                    for (int i = 0; i < _currentIndex; i++)
+                    {
+                        if (HasIntersectionWithOtherShape(shape, InnerShapes[i]))
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+
+                return flag;
+            }
         }
     }
 }

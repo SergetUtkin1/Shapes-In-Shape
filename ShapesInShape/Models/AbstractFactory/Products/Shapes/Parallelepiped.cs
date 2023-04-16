@@ -5,6 +5,9 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 {
     public class Parallelepiped : Shape
     {
+        public Plane[] Sides { get; private set; }
+        public Position[] Points { get; private set; }
+
         public Parallelepiped(Position center, double length, double width, double heigth) : base(center, length, width, heigth)
         {
             Sides = new Plane[6];
@@ -12,9 +15,12 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
             SetSides();
         }
 
-        public Plane[] Sides { get; private set; }
-
-        public Position[] Points { get; private set; }
+        public Parallelepiped(Position center, double length) : base(center, length)
+        {
+            Sides = new Plane[6];
+            Points = new Position[8];
+            SetSides();
+        }
 
         protected override double GetVolume()
             => Dimension.Length * Dimension.Width * Dimension.Heigth;

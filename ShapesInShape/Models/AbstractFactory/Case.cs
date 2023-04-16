@@ -26,10 +26,10 @@ namespace ShapesInShape.Models.AbstractFactory
 
             while (curCount < Configuration.Count && attemptCount < 1000000000 && shapeIndex < _shapes.Length - 1)
             {
-                if (attemptCount > 10000)
+                if (attemptCount > 10000000)
                     shapeIndex += 1;
 
-                var center = Factory.CreatePosition(Configuration.DistributionOfPosition); 
+                var center = Factory.CreatePoint(Configuration.DistributionOfPosition); 
                 Factory.CreateInnerShape(center, _shapes[shapeIndex].Dimension);
 
                 if (Factory.CheckIntersection())
