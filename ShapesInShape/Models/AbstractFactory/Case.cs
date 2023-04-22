@@ -1,4 +1,5 @@
-﻿using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
+﻿using ShapesInShape.ConsoleApplication.Utils;
+using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
 using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.Models.AbstractFactory
@@ -8,11 +9,13 @@ namespace ShapesInShape.Models.AbstractFactory
         private Shape[] _shapes;
         private CaseConfiguration Configuration { get; set; }
         private CaseFactory Factory { get; set; }
+        private FileWriter FileWriter { get; set; }
 
-        public Case(CaseFactory factory, CaseConfiguration configuration)
+        public Case(CaseFactory factory, CaseConfiguration configuration, FileWriter fileWriter)
         {
             Configuration = configuration;
             Factory = factory;
+            FileWriter = fileWriter;
             Factory.CreateBoundingShape(Configuration.BoundDimension);
             Factory.SetCountOfInnerShapes(Configuration.Count);
             _shapes = FillArrayOfInnerShapes(Configuration.IsSortingEnable);
@@ -42,9 +45,11 @@ namespace ShapesInShape.Models.AbstractFactory
                     curCount += 1;
                     shapeIndex += 1;
                     attemptCount = 0;
+                    FileWriter.Write(center, _shapes[shapeIndex].Dimension);
                     Console.WriteLine($"Окружность номер {curCount}: ({center.X}, {center.Y}, {center.Z}) R = {_shapes[shapeIndex].Dimension.Length} ");
                 }
             }
+            FileWriter.Count += 1;
             Console.WriteLine($"Удалось вместить: {curCount}. \nПройдено фигур: {shapeIndex}");
         }
 

@@ -1,12 +1,5 @@
 ﻿using ShapesInShape.Models.AbstractFactory.Products.AbstractProducts;
-using ShapesInShape.Models.AbstractFactory.Products.Shapes;
 using ShapesInShape.Models.BasicElements;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShapesInShape.Models.AbstractFactory
 {

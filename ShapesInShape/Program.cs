@@ -1,4 +1,5 @@
-﻿using ShapesInShape.Models;
+﻿using ShapesInShape.ConsoleApplication.Utils;
+using ShapesInShape.Models;
 using ShapesInShape.Models.AbstractFactory;
 using ShapesInShape.Models.AbstractFactory.ConcreteFactories;
 using ShapesInShape.Models.AbstractFactory.Products.Distributions;
@@ -9,6 +10,7 @@ internal class Program
     private static void Main()
     {
         var factory = new SphereInSphereFactory();
+        var fileWriter = new FileWriter();
         var configuration = new CaseConfiguration()
         {
             Count = 1000,
@@ -20,7 +22,7 @@ internal class Program
             DistributionOfPosition = new UniformDistribution()
         };
 
-        var myCase = new Case(factory, configuration);
+        var myCase = new Case(factory, configuration, fileWriter);
 
         myCase.Run();
     }

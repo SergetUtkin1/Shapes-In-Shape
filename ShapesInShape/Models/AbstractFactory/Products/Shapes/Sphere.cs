@@ -17,7 +17,7 @@ namespace ShapesInShape.Models.AbstractFactory.Products.Shapes
 
         protected override double GetVolume()
         {
-            double volume = (4.0 / 3.0) * double.Pi * Dimension.Length;
+            double volume = (4.0 / 3.0) * double.Pi * Math.Pow(Dimension.Length, 3);
             return volume;
         }
     }
