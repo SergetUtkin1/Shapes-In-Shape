@@ -3,21 +3,18 @@ using ShapesInShape.Models.BasicElements;
 
 namespace ShapesInShape.ConsoleApplication.Models.AbstractFactory.Products.Shapes
 {
-    public class Сylinder : Shape
+    public class Cylinder : Shape
     {
-        public Сylinder(Position center, double length, double width, double heigth) : base(center, length, width, heigth)
+        public Cylinder(Position center, double length, double width, double heigth, double theta, double fi) : base(center, length, width, heigth, theta, fi)
         {
             Dimension = new Dimension()
             {
                 Heigth = heigth,
                 Length = length,
-                Width = length
+                Width = length,
+                Theta = theta,
+                Fi = fi,
             };
-        }
-
-        public Сylinder(Position center, double length) : base(center, length)
-        {
-
         }
 
         protected override double GetVolume()

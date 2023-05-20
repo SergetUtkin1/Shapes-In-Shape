@@ -8,6 +8,13 @@ namespace ShapesInShape.Models.AbstractFactory.Products.AbstractProducts
         public Dimension Dimension { get; set; }
         public double Volume { get; set; }
 
+        public Shape(Position center, double length, double width, double heigth, double theta, double fi)
+        {
+            Dimension = new Dimension(length, width, heigth, theta, fi);
+            Center = center;
+            Volume = GetVolume();
+        }
+
         public Shape(Position center, double length, double width, double heigth)
         {
             Dimension = new Dimension(length, width, heigth);

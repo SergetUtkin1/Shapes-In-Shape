@@ -64,7 +64,9 @@ namespace ShapesInShape.Models.AbstractFactory
                 {
                     Length = CreateLength(),
                     Width = CreateLength(),
-                    Heigth = CreateLength()
+                    Heigth = CreateLength(),
+                    Theta = CreateLength(),
+                    Fi = CreateLength(),
                 };
                 dimensions[i] = dimension;
             }
