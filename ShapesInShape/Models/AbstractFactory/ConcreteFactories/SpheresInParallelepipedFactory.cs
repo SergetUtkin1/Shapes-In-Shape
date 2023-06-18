@@ -108,28 +108,26 @@ namespace ShapesInShape.Models.AbstractFactory.ConcreteFactories
 
         public override bool CheckIntersection()
         {
-            {
-                var flag = false;
-                var shape = InnerShapes[_currentIndex];
+            var flag = false;
+            var shape = InnerShapes[_currentIndex];
 
-                if (HasIntersectionWithBound(shape))
+            if (HasIntersectionWithBound(shape))
+            {
+                flag = true;
+            }
+            else
+            {
+                for (int i = 0; i < _currentIndex; i++)
                 {
-                    flag = true;
-                }
-                else
-                {
-                    for (int i = 0; i < _currentIndex; i++)
+                    if (HasIntersectionWithOtherShape(shape, InnerShapes[i]))
                     {
-                        if (HasIntersectionWithOtherShape(shape, InnerShapes[i]))
-                        {
-                            flag = true;
-                            break;
-                        }
+                        flag = true;
+                        break;
                     }
                 }
-
-                return flag;
             }
+
+            return flag;
         }
     }
 }

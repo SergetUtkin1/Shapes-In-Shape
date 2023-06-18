@@ -46,7 +46,7 @@ namespace ShapesInShape.Models.AbstractFactory
                     shapeIndex += 1;
                     attemptCount = 0;
                     FileWriter.Write(center, _shapes[shapeIndex].Dimension);
-                    Console.WriteLine($"Окружность номер {curCount}: ({center.X}, {center.Y}, {center.Z}) R = {_shapes[shapeIndex].Dimension.Length} ");
+                    Console.WriteLine($"N-{curCount}: ({center.X}, {center.Y}, {center.Z}) H:{_shapes[shapeIndex].Dimension.Heigth} W:{_shapes[shapeIndex].Dimension.Width}  L:{_shapes[shapeIndex].Dimension.Length} ");
                 }
             }
             FileWriter.Count += 1;
